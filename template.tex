@@ -1,0 +1,105 @@
+\documentclass[11pt,a5paper,oneside,openany]{book}
+
+\usepackage{fontspec}
+\IfFontExistsTF{Vollkorn}
+  {\setmainfont{Vollkorn}}
+  {\setmainfont{Georgia}}
+\usepackage{xeCJK}
+\xeCJKDeclareCharClass{Default}{"2018,"2019,"201C,"201D,"2013,"2014,"2026}
+\IfFontExistsTF{Noto Serif CJK TC}
+  {\setCJKmainfont{Noto Serif CJK TC}}
+  {\setCJKmainfont{Songti TC}}
+\renewcommand{\bfdefault}{m}
+\usepackage[protrusion=false]{microtype}
+\setlength{\emergencystretch}{3em}
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[unicode,hidelinks,pdftitle={SCREAM!}]{hyperref}
+\urlstyle{same}
+\geometry{
+  left=19.5mm, right=19.5mm,
+  top=22mm, bottom=23mm
+}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\centering}{ }{0pt}{\Large}
+\titlespacing*{\chapter}{0pt}{65mm}{4mm}
+\newcommand{\chapterimage}[1]{%
+  \AddToHookNext{shipout/background}{%
+    \put(0,\dimexpr-24mm-0.25\paperheight\relax){%
+      \includegraphics[width=\paperwidth,height=0.25\paperheight]{#1}%
+    }%
+  }%
+}
+
+\newcommand{\ridechapter}[2]{%
+  \chapter*{#1}%
+  \chapterimage{#2}%
+  \addcontentsline{toc}{chapter}{#1}%
+}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\linespread{1.12}
+\pagestyle{plain}
+\renewcommand{\thepage}{\arabic{page}}
+
+\renewcommand{\contentsname}{\textsc{contents}}
+\makeatletter
+\renewcommand*{\l@chapter}[2]{%
+  \noindent#1\enspace\dotfill\enspace#2\par
+  \vspace{0.6em}%
+}
+\makeatother
+
+\begin{document}
+\frontmatter
+\pagestyle{empty}
+
+\newgeometry{left=0mm,right=0mm,top=65mm,bottom=15mm}
+\thispagestyle{empty}
+\AddToHookNext{shipout/background}{%
+  \put(0,-\paperheight){%
+    \includegraphics[width=\paperwidth,height=\paperheight]{cover.png}%
+  }%
+  \put(0,\dimexpr 30mm-\paperheight\relax){%
+    \makebox[\paperwidth]{%
+      \color{black}\fontsize{14}{17}\selectfont %%COVER_DATE%%%
+    }%
+  }%
+}
+\begin{center}
+  {\color{black}\fontsize{42}{46}\selectfont SCREAM!\par}
+  \vspace{3mm}
+  {\color{black}\fontsize{16}{20}\selectfont\itshape A procedural novel\par}
+\end{center}
+\restoregeometry
+
+\thispagestyle{empty}
+\vspace*{35mm}
+\noindent {\small\textsc{edition} %%EDITION%%}\par
+\bigskip
+\noindent This novel is \href{https://github.com/nmifsud/scream}{assembled}
+from the ride narratives of %%RIDES%% roller coasters from around the world.
+Passages have been shuffled and stitched together, with substitutions to improve continuity.
+Wikipedia text is licensed under
+\href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0}.
+The cover and chapter illustrations are derived from a model of the novel’s
+continuous %%HOURS%%-hour coaster.
+\clearpage
+
+\begingroup
+  \makeatletter
+  \let\ps@plain\ps@empty
+  \makeatother
+  \titlespacing*{\chapter}{0pt}{20mm}{4mm}
+  \tableofcontents
+  \clearpage
+\endgroup
+
+\mainmatter
+\pagestyle{plain}
+%%BODY%%
+\end{document}

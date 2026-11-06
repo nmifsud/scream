@@ -1,0 +1,4 @@
+beautifulsoup4
+requests
+pillow
+num2words==0.5.14
